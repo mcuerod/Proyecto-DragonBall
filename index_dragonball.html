@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!--Miguel Ángel Cuevas Rodríguez-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Universo Dragon Ball</title>
+	<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Itim&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+		rel="stylesheet">
+
+	<link rel="icon" href="favicon.png" type="image/png">
+
+
+	<style>
+		/*Fondo*/
+		body {
+			margin: 0;
+			background-image: url(dragonball-background.jpg);
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			color: #ffffff;
+		}
+
+		.contPrincipal {
+			background-color: #000000c2;
+			padding: 1.2em;
+		}
+
+		header {
+			border: #d9db6b81 ridge 4px;
+			border-radius: 5px;
+		}
+
+		/* Fuentes para el titulo */
+		#textInicial h1 {
+			font-family: 'Bangers', sans-serif;
+			font-size: 4em;
+			color: #fefe1a;
+			text-shadow: 0 0 10px #000000;
+			text-align: center;
+		}
+
+		#textInicial h1 span {
+			color: #fe1422;
+		}
+
+		#textPress {
+			font-family: "Itim", cursive;
+			color: #d9db6b;
+			text-shadow: 0 0 10px #ececec79;
+			text-align: center;
+		}
+
+		/*Fuentes para el titulo--------------------------*/
+
+		.contenido {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+		/* Estilos de la tabla Personajes */
+		.estiloTablaPr {
+			width: 80%;
+			margin: 20px auto;
+			border-collapse: separate;
+			border-spacing: 0;
+			/*font-family: 'Arial Narrow', Arial, sans-serif;*/
+			font-family: 'Roboto';
+			box-shadow: 0 4px 8px #00000033;
+			overflow: hidden;
+			border-radius: 8px;
+		}
+
+		/*Encabezados de la tabla*/
+		.estiloTablaPr th {
+			background-color: #D67711;
+			color: #f3f3f3;
+			font-weight: bold;
+			padding: 1em;
+			text-transform: uppercase;
+			font-size: 1em;
+		}
+
+		/*Celdas de la tabla*/
+		.estiloTablaPr td {
+			padding: 0.8em;
+			background-color: #1a1a1a;
+			color: #f5f5f5;
+			text-align: center;
+			border-bottom: 1px solid #444;
+		}
+
+		/*Bordes de la tabla*/
+		.estiloTablaPr th:first-child,
+		.estiloTablaPr td:first-child {
+			border-left: none;
+		}
+
+		.estiloTablaPr th:last-child,
+		.estiloTablaPr td:last-child {
+			border-right: none;
+		}
+
+		/*Efecto de hover en las filas*/
+		.estiloTablaPr tr:hover td {
+			background-color: #333333;
+		}
+
+		/*Botón "Más información"*/
+		.estiloTablaPr button {
+			background-color: #fe1422;
+			color: #ffffff;
+			border: none;
+			padding: 0.4em 0.8em;
+			cursor: pointer;
+			border-radius: 4px;
+			font-weight: bold;
+			transition: background-color 0.3s ease;
+		}
+
+		.estiloTablaPr button:hover {
+			background-color: #ff5733;
+		}
+
+		/*Estilo de la tabla Personajes---------------------------*/
+
+		.btNav {
+			background-color: #fe1422;
+			color: #ffffff;
+			border: none;
+			padding: 1em 1.5em;
+			margin-right: 1em;
+			cursor: pointer;
+			border-radius: 4px;
+			font-family: 'Roboto';
+			font-size: .9em;
+			font-weight: bold;
+			transition: background-color 0.3s ease;
+		}
+
+		.btNav:hover {
+			background-color: #ff5733;
+		}
+
+		.btNav:disabled {
+			background-color: #888888;
+			color: #cccccc;
+			/*cursor: not-allowed;*/
+			cursor: auto;
+		}
+
+		/*---------------------------------------------------------------*/
+		/* Estilo para la ventana emergente */
+		#infoPersonaje {
+			position: absolute;
+			bottom: -63%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 90%;
+			max-width: 600px;
+			background-color: #1a1a1a;
+			color: #f5f5f5;
+			border-radius: 10px;
+			box-shadow: 0 4px 10px #000000cc;
+			padding: 20px;
+			z-index: 10;
+			overflow-y: auto;
+			max-height: 90vh;
+		}
+
+		/* Botón de cierre */
+		.cerrarBtn {
+			position: sticky;
+			top: 5px;
+			left: 100%;
+			background: transparent;
+			border: none;
+			color: #ffffff;
+			font-size: 1.5em;
+			cursor: pointer;
+		}
+
+		.cerrarBtn:hover {
+			color: #ff5733;
+		}
+
+		/* Título y descripción */
+		#nombrePersonaje {
+			font-family: 'Bangers', cursive;
+			font-size: 2em;
+			color: #fe1422;
+			text-align: center;
+			margin-top: 0;
+		}
+
+		#descripcionPersonaje {
+			margin: 10px 0 20px;
+			text-align: justify;
+			font-family: 'Roboto';
+			color: #d9db6b;
+		}
+
+		/* Apartados específicos */
+		.apartado {
+			margin-bottom: 20px;
+			padding: 1em;
+			background-color: #00000096;
+			box-shadow: 0 4px 10px #000000cc;
+			border-radius: 5px;
+		}
+
+		.apartado h3 {
+			color: #fefe1a;
+			font-family: 'Bangers', sans-serif;
+			letter-spacing: 2px;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+
+		/* Imagen del personaje */
+		#imagenPersonaje {
+			width: 30%;
+			border-radius: 8px;
+			margin-bottom: 10px;
+		}
+
+		/* Información del planeta */
+		#nombrePlaneta,
+		#planetaDestruido,
+		#descripcionPlaneta {
+			color: #d9db6b;
+			text-align: justify;
+			font-family: 'Roboto';
+		}
+
+		#imagenPlaneta {
+			width: 50%;
+			border-radius: 8px;
+			margin-bottom: 10px;
+		}
+
+		/* Contenedor de transformaciones */
+		#transformaciones {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		/* Estilo de cada transformación */
+		.transformItem {
+			width: 48%;
+			background-color: #3333338c;
+			border-radius: 8px;
+			padding: 10px;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+
+		.transformItem img {
+			width: 90%;
+			border-radius: 4px;
+			margin-bottom: 5px;
+		}
+
+		.transformItem h4 {
+			color: #fe1422;
+			margin: 5px 0;
+			font-family: 'Itim', sans-serif;
+			letter-spacing: 2px;
+			text-shadow: 0 0 5px #47474779;
+			font-size: 1em;
+		}
+
+		.transformItem p {
+			color: #d9db6b;
+			font-size: 0.9em;
+			font-family: 'Roboto';
+		}
+
+		/*---------------------------------------------------------------*/
+
+		.ocultar {
+			display: none;
+		}
+	</style>
+
+	<script>
+
+		window.onload = () => {
+
+			window.onkeypress = cargarPersonajes;
+
+		}
+
+		function cargarPersonajes(e) {
+
+			window.onkeypress = null;
+			console.log('Tecla presionada al inicio :>> ', e.key);
+
+			document.querySelector("#contPersonajes").classList.remove("ocultar");
+
+			fetch('https://dragonball-api.com/api/characters?limit=10')
+				.then(datos => datos.json())
+				.then(res => llenarPersonajes(res))
+				.catch(error => console.log('Error en la petición: ', error));
+
+		}
+
+		function llenarPersonajes(res) {
+
+			console.log('Objeto de respuesta :>> ', res);
+			console.log('Personajes :>> ', res.items);
+
+			document.querySelector("#textPress").innerHTML = `Personajes de Dragon Ball Página ${res.meta.currentPage}/${res.meta.totalPages}`;
+			document.querySelector("#textPress").style.fontSize = "2em";
+
+			let personajes = res.items;
+			let tbody = document.querySelector("#datosTablaPr");
+			tbody.innerHTML = "";
+
+			for (const personaje of personajes) {
+
+				let tr = addElement("tr", tbody);
+
+				let td = addElement("td", tr);
+				td.innerHTML = personaje.name;
+
+				td = addElement("td", tr);
+				td.innerHTML = personaje.ki;
+
+				td = addElement("td", tr);
+				td.innerHTML = personaje.maxKi;
+
+				td = addElement("td", tr);
+				td.innerHTML = personaje.race;
+
+				td = addElement("td", tr);
+				td.innerHTML = personaje.gender;
+
+				td = addElement("td", tr);
+				td.innerHTML = personaje.affiliation;
+
+				td = addElement("td", tr);
+				let button = addElement("button", td);
+				button.type = "button";
+				button.innerHTML = "Más información";
+
+				button.onclick = () => {
+
+					fetch('https://dragonball-api.com/api/characters/' + personaje.id)
+						.then(datos => datos.json())
+						.then(res => infoPersonaje(res))
+						.catch(error => console.log('Error en la petición: ', error));
+
+				}
+
+			}
+
+			document.querySelector("#btNavFirst").disabled = res.links.previous == "" ? true : false;
+			document.querySelector("#btNavAnt").disabled = res.links.previous == "" ? true : false;
+			document.querySelector("#btNavSig").disabled = res.links.next == "" ? true : false;
+			document.querySelector("#btNavLast").disabled = res.links.next == "" ? true : false;
+
+			document.querySelector("#btNavFirst").onclick = () => {
+
+				fetch(res.links.first)
+					.then(datos => datos.json())
+					.then(res => llenarPersonajes(res))
+					.catch(error => console.log('Error en la petición: ', error));
+
+			}
+
+			document.querySelector("#btNavAnt").onclick = () => {
+
+				fetch(res.links.previous)
+					.then(datos => datos.json())
+					.then(res => llenarPersonajes(res))
+					.catch(error => console.log('Error en la petición: ', error));
+
+			}
+
+			document.querySelector("#btNavSig").onclick = () => {
+
+				fetch(res.links.next)
+					.then(datos => datos.json())
+					.then(res => llenarPersonajes(res))
+					.catch(error => console.log('Error en la petición: ', error));
+
+			}
+
+			document.querySelector("#btNavLast").onclick = () => {
+
+				fetch(res.links.last)
+					.then(datos => datos.json())
+					.then(res => llenarPersonajes(res))
+					.catch(error => console.log('Error en la petición: ', error));
+
+			}
+
+			document.querySelector("#cerrarInfo").onclick = () => {
+
+				document.querySelector("#infoPersonaje").classList.add("ocultar");
+
+			}
+
+
+		}
+
+		function infoPersonaje(res) {
+
+			console.log('Más información :>> ', res);
+
+			// informacion
+			document.querySelector("#nombrePersonaje").innerHTML = res.name;
+			document.querySelector("#descripcionPersonaje").innerHTML = res.description;
+			document.querySelector("#imagenPersonaje").src = res.image;
+			document.querySelector("#imagenPersonaje").alt = "Imagen de " + res.name;
+
+			// Planeta
+			document.querySelector("#imagenPlaneta").src = res.originPlanet.image
+			document.querySelector("#imagenPersonaje").alt = "Imagen del planeta " + res.originPlanet.name;
+			document.querySelector("#nombrePlaneta").innerHTML = res.originPlanet.name;
+			document.querySelector("#planetaDestruido").innerHTML = res.originPlanet.isDestroyed ? "Sí" : "No";
+			document.querySelector("#descripcionPlaneta").innerHTML = res.originPlanet.description;
+
+			// Transformaciones
+			let infoTransform = document.querySelector("#transformaciones");
+			infoTransform.innerHTML = "";
+
+			if (res.transformations.length > 0) {
+
+				res.transformations.forEach(transformation => {
+
+					let transformItem = addElement("div", infoTransform);
+					transformItem.classList.add("transformItem");
+
+					// Imagen de la transformación
+					let img = addElement("img", transformItem);
+					img.src = transformation.image;
+					img.alt = "Imagen de " + transformation.name;
+
+					// Nombre de la transformación
+					let nombre = addElement("h4", transformItem);
+					nombre.innerHTML = transformation.name;
+
+					// Ki de la transformación
+					let ki = addElement("p", transformItem);
+					ki.innerHTML = `Ki: ${transformation.ki}`;
+				});
+
+			} else {
+
+				let noTransform = addElement("p", infoTransform);
+				noTransform.innerHTML = "No hay transformaciones disponibles para este personaje.";
+				noTransform.style.fontFamily = "Roboto";
+
+			}
+
+			document.querySelector("#infoPersonaje").classList.remove("ocultar");
+
+		}
+
+		function addElement(nameElement, dadElement) {
+
+			// Creación del nodo de tipo Element
+			let element = document.createElement(nameElement);
+
+			// Agrega el elemento creado como hijo de dadElement
+			dadElement.appendChild(element);
+
+			return element;
+
+		}
+
+	</script>
+</head>
+
+<body>
+	<div class="contPrincipal">
+
+		<header>
+			<div id="textInicial">
+				<h1>Explora el universo <br> Dragon <span>Ball</span></h1>
+			</div>
+		</header>
+
+		<section class="contenido">
+			<h2 id="textPress">Presiona cualquier tecla para comenzar</h2>
+
+			<div id="contPersonajes" class="ocultar">
+				<table class="estiloTablaPr" id="tbPersonajes">
+
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Ki</th>
+							<th>Máximo Ki</th>
+							<th>Raza</th>
+							<th>Género</th>
+							<th>Afiliación</th>
+							<th>Más información</th>
+						</tr>
+					</thead>
+
+					<tbody id="datosTablaPr">
+
+					</tbody>
+
+				</table>
+
+				<div id="btsNav">
+					<button type="button" class="btNav" id="btNavFirst">Inicio</button>
+					<button type="button" class="btNav" id="btNavAnt">Anterior</button>
+					<button type="button" class="btNav" id="btNavSig">Siguiente</button>
+					<button type="button" class="btNav" id="btNavLast">Final</button>
+				</div>
+
+				<div id="infoPersonaje" class="ocultar">
+
+					<div class="infoContent">
+
+						<button id="cerrarInfo" class="cerrarBtn">&times;</button>
+						<h2 id="nombrePersonaje"></h2>
+
+						<div class="apartado">
+							<h3>Imagen</h3>
+							<img id="imagenPersonaje" src="" alt="">
+						</div>
+
+						<div class="apartado">
+							<h3>Descripción</h3>
+							<p id="descripcionPersonaje"></p>
+						</div>
+
+						<div class="apartado">
+							<h3>Planeta</h3>
+							<img id="imagenPlaneta" src="" alt="">
+							<p><strong>Nombre:</strong> <span id="nombrePlaneta"></span></p>
+							<p><strong>Destruido:</strong> <span id="planetaDestruido"></span></p>
+							<p id="descripcionPlaneta"></p>
+						</div>
+
+						<div class="apartado">
+							<h3>Transformaciones</h3>
+							<div id="transformaciones">
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</section>
+
+	</div>
+
+</body>
+
+</html>
